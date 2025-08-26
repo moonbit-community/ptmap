@@ -1,0 +1,56 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "illusory0x0/ptmap"
+
+// Values
+
+// Errors
+
+// Types and methods
+pub enum T[V] {
+  Empty
+  Leaf(Int, V)
+  Branch(Int, Int, T[V], T[V])
+}
+fn[V] T::add(Self[V], Int, V) -> Self[V]
+fn[V] T::bindings(Self[V]) -> Array[(Int, V)]
+fn[V] T::cardinal(Self[V]) -> Int
+fn[V] T::choose(Self[V]) -> (Int, V)
+fn[V] T::choose_opt(Self[V]) -> (Int, V)?
+fn[V] T::compare(Self[V], Self[V], (V, V) -> Int) -> Int
+fn[V] T::empty() -> Self[V]
+fn[V] T::equal(Self[V], Self[V], (V, V) -> Bool) -> Bool
+fn[V] T::exists(Self[V], (Int, V) -> Bool) -> Bool
+fn[V] T::filter(Self[V], (Int, V) -> Bool) -> Self[V]
+fn[V, U] T::filter_map(Self[V], (Int, V) -> U?) -> Self[U]
+fn[V] T::find(Self[V], Int) -> V
+fn[V] T::find_first(Self[V], (Int) -> Bool) -> (Int, V)
+fn[V] T::find_first_opt(Self[V], (Int) -> Bool) -> (Int, V)?
+fn[V] T::find_last(Self[V], (Int) -> Bool) -> (Int, V)
+fn[V] T::find_last_opt(Self[V], (Int) -> Bool) -> (Int, V)?
+fn[V] T::find_opt(Self[V], Int) -> V?
+fn[V, Acc] T::fold(Self[V], (Int, V, Acc) -> Acc, Acc) -> Acc
+fn[V] T::for_all(Self[V], (Int, V) -> Bool) -> Bool
+fn[V] T::is_empty(Self[V]) -> Bool
+fn[V] T::iter(Self[V], (Int, V) -> Unit) -> Unit
+fn[V, U] T::map(Self[V], (V) -> U) -> Self[U]
+fn[V, U] T::mapi(Self[V], (Int, V) -> U) -> Self[U]
+fn[V] T::max_binding(Self[V]) -> (Int, V)
+fn[V] T::max_binding_opt(Self[V]) -> (Int, V)?
+fn[V] T::mem(Self[V], Int) -> Bool
+fn[V, U, W] T::merge(Self[V], Self[U], (Int, V?, U?) -> W?) -> Self[W]
+fn[V] T::min_binding(Self[V]) -> (Int, V)
+fn[V] T::min_binding_opt(Self[V]) -> (Int, V)?
+fn[V] T::partition(Self[V], (Int, V) -> Bool) -> (Self[V], Self[V])
+fn[V] T::remove(Self[V], Int) -> Self[V]
+fn[V] T::singleton(Int, V) -> Self[V]
+fn[V] T::split(Self[V], Int) -> (Self[V], V?, Self[V])
+fn[V] T::union(Self[V], Self[V], (Int, V, V) -> V?) -> Self[V]
+fn[V] T::update(Self[V], Int, (V?) -> V?) -> Self[V]
+impl[V : Eq] Eq for T[V]
+impl[V : Show] Show for T[V]
+
+// Type aliases
+pub typealias Int as Key
+
+// Traits
+
