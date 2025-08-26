@@ -1,3 +1,0 @@
-- rm ptset.ml{i}
-- check with latest ocaml compiler and oldest
-- opam package

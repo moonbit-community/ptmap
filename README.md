@@ -211,15 +211,24 @@ This project is licensed under the GNU Lesser General Public License v2.1 - see 
 
 This follows the same license as the original OCaml implementation to maintain compatibility.
 
+## Original Implementation
+
+This MoonBit implementation is based on the OCaml Patricia Tree Map library by Jean-Christophe Filliatre.
+
+**Original Repository**: [https://github.com/backtracking/ptmap](https://github.com/backtracking/ptmap)
+
+The original OCaml implementation provides the foundation for this MoonBit port, maintaining the same algorithmic approach and API design while adapting to MoonBit's type system and language features.
+
 ## Credits
 
-- Original OCaml implementation by Jean-Christophe Filliatre
+- Original OCaml implementation by Jean-Christophe Filliatre ([ptmap](https://github.com/backtracking/ptmap))
 - Based on the paper "Fast Mergeable Integer Maps" by Chris Okasaki and Andrew Gill
 - Bug fix from "QuickChecking Patricia Trees" by Jan Midtgaard
-- MoonBit port by [Your Name]
+- MoonBit port adaptation
 
 ## References
 
+- [Original OCaml ptmap repository](https://github.com/backtracking/ptmap) - Source implementation
 - [Fast Mergeable Integer Maps](http://www.cs.columbia.edu/~cdo/papers.html#ml98maps) - Original paper
 - [QuickChecking Patricia Trees](https://www.janmidtgaard.dk/papers/Midtgaard-al:JFP-2017.pdf) - Bug fix paper
 - [MoonBit Language](https://www.moonbitlang.com/) - Target language documentation
