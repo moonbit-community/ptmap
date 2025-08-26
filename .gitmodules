@@ -1,0 +1,3 @@
+[submodule "ptmap.ocaml"]
+	path = ptmap.ocaml
+	url = https://github.com/backtracking/ptmap

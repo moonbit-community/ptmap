@@ -1,0 +1,10 @@
+{
+  "name": "illusory0x0/ptmap",
+  "version": "0.1.0",
+  "readme": "README.md",
+  "repository": "https://github.com/illusory0x0/ptmap.mbt",
+  "license": "LGPL-2.1",
+  "keywords": ["data-structure", "map", "patricia-tree", "functional", "persistent"],
+  "description": "Patricia Tree Map implementation for MoonBit - Fast mergeable integer maps based on Patricia trees",
+  "source": "src"
+}
