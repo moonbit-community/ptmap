@@ -1,4 +1,4 @@
-///
+///|
 test "basic ptmap functionality" {
   // Test empty map
   let empty : T[Int] = T::empty()
