@@ -28,19 +28,20 @@ This implementation follows the paper "Fast Mergeable Integer Maps" by Chris Oka
 
 ## Installation
 
-Add this to your `moon.mod.json`:
+Add the dependency to your project:
+
+```bash
+moon add illusory0x0/ptmap
+```
+
+Or manually add it to your `moon.mod.json`:
 
 ```json
 {
   "deps": {
-    "username/ptmap": "*"
+    "illusory0x0/ptmap": "*"
   }
 }
-```
-
-Then run:
-```bash
-moon install
 ```
 
 ## Basic Usage
