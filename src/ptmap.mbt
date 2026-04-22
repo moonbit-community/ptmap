@@ -13,7 +13,7 @@
 /// - bindings is not sorted by keys
 
 ///| Key type for the map (integer)
-pub typealias Int as Key
+pub type Key = Int
 
 ///| Patricia tree map data structure
 pub enum T[V] {
