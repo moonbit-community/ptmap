@@ -2,7 +2,7 @@
 test "basic ptmap functionality" {
   // Test empty map
   let empty : T[Int] = T::empty()
-  if not(empty.is_empty()) {
+  if !empty.is_empty() {
     abort("Empty map should be empty")
   }
 
@@ -19,7 +19,7 @@ test "basic ptmap functionality" {
   if map.cardinal() != 2 {
     abort("Map should have 2 elements")
   }
-  if not(map.mem(1)) || not(map.mem(2)) {
+  if !map.mem(1) || !map.mem(2) {
     abort("Map should contain both keys")
   }
 
