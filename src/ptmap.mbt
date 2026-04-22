@@ -31,7 +31,7 @@ pub fn[V] T::empty() -> T[V] {
 }
 
 ///| Check if the map is empty
-pub fn[V] is_empty(self : T[V]) -> Bool {
+pub fn[V] T::is_empty(self : T[V]) -> Bool {
   match self {
     Empty => true
     _ => false
@@ -83,7 +83,7 @@ fn[V] branch(p : Int, m : Int, t0 : T[V], t1 : T[V]) -> T[V] {
 }
 
 ///| Check if a key is present in the map
-pub fn[V] mem(self : T[V], k : Key) -> Bool {
+pub fn[V] T::mem(self : T[V], k : Key) -> Bool {
   fn go(t : T[V]) -> Bool {
     match t {
       Empty => false
@@ -96,7 +96,7 @@ pub fn[V] mem(self : T[V], k : Key) -> Bool {
 }
 
 ///| Add a key-value binding to the map
-pub fn[V] add(self : T[V], k : Key, v : V) -> T[V] {
+pub fn[V] T::add(self : T[V], k : Key, v : V) -> T[V] {
   fn ins(t : T[V]) -> T[V] {
     match t {
       Empty => Leaf(k, v)
@@ -123,7 +123,7 @@ pub fn[V] T::singleton(k : Key, v : V) -> T[V] {
 }
 
 ///| Remove a key from the map
-pub fn[V] remove(self : T[V], k : Key) -> T[V] {
+pub fn[V] T::remove(self : T[V], k : Key) -> T[V] {
   fn rmv(t : T[V]) -> T[V] {
     match t {
       Empty => Empty
@@ -145,7 +145,7 @@ pub fn[V] remove(self : T[V], k : Key) -> T[V] {
 }
 
 ///| Count the number of key-value pairs in the map
-pub fn[V] cardinal(self : T[V]) -> Int {
+pub fn[V] T::cardinal(self : T[V]) -> Int {
   fn count(t : T[V]) -> Int {
     match t {
       Empty => 0
@@ -158,7 +158,7 @@ pub fn[V] cardinal(self : T[V]) -> Int {
 }
 
 ///| Find the value associated with a key
-pub fn[V] find(self : T[V], k : Key) -> V {
+pub fn[V] T::find(self : T[V], k : Key) -> V {
   fn go(t : T[V]) -> V {
     match t {
       Empty => abort("Key not found")
@@ -171,7 +171,7 @@ pub fn[V] find(self : T[V], k : Key) -> V {
 }
 
 ///| Find the value associated with a key, returning None if not found
-pub fn[V] find_opt(self : T[V], k : Key) -> V? {
+pub fn[V] T::find_opt(self : T[V], k : Key) -> V? {
   fn go(t : T[V]) -> V? {
     match t {
       Empty => None
@@ -184,7 +184,7 @@ pub fn[V] find_opt(self : T[V], k : Key) -> V? {
 }
 
 ///| Update the value for a given key using a function
-pub fn[V] update(self : T[V], k : Key, f : (V?) -> V?) -> T[V] {
+pub fn[V] T::update(self : T[V], k : Key, f : (V?) -> V?) -> T[V] {
   match f(self.find_opt(k)) {
     None => self.remove(k)
     Some(z) => self.add(k, z)
@@ -192,7 +192,7 @@ pub fn[V] update(self : T[V], k : Key, f : (V?) -> V?) -> T[V] {
 }
 
 ///| Find the first key-value pair satisfying a predicate
-pub fn[V] find_first(self : T[V], predicate : (Key) -> Bool) -> (Key, V) {
+pub fn[V] T::find_first(self : T[V], predicate : (Key) -> Bool) -> (Key, V) {
   fn find_first_opt_helper(t : T[V]) -> (Key, V)? {
     match t {
       Empty => None
@@ -218,7 +218,7 @@ pub fn[V] find_first(self : T[V], predicate : (Key) -> Bool) -> (Key, V) {
 }
 
 ///| Find the first key-value pair satisfying a predicate, returning None if none found
-pub fn[V] find_first_opt(self : T[V], predicate : (Key) -> Bool) -> (Key, V)? {
+pub fn[V] T::find_first_opt(self : T[V], predicate : (Key) -> Bool) -> (Key, V)? {
   fn go(t : T[V]) -> (Key, V)? {
     match t {
       Empty => None
@@ -241,7 +241,7 @@ pub fn[V] find_first_opt(self : T[V], predicate : (Key) -> Bool) -> (Key, V)? {
 }
 
 ///| Find the last key-value pair satisfying a predicate
-pub fn[V] find_last(self : T[V], predicate : (Key) -> Bool) -> (Key, V) {
+pub fn[V] T::find_last(self : T[V], predicate : (Key) -> Bool) -> (Key, V) {
   fn find_last_opt_helper(t : T[V]) -> (Key, V)? {
     match t {
       Empty => None
@@ -267,7 +267,7 @@ pub fn[V] find_last(self : T[V], predicate : (Key) -> Bool) -> (Key, V) {
 }
 
 ///| Find the last key-value pair satisfying a predicate, returning None if none found
-pub fn[V] find_last_opt(self : T[V], predicate : (Key) -> Bool) -> (Key, V)? {
+pub fn[V] T::find_last_opt(self : T[V], predicate : (Key) -> Bool) -> (Key, V)? {
   fn go(t : T[V]) -> (Key, V)? {
     match t {
       Empty => None
@@ -290,7 +290,7 @@ pub fn[V] find_last_opt(self : T[V], predicate : (Key) -> Bool) -> (Key, V)? {
 }
 
 ///| Iterate over all key-value pairs in the map
-pub fn[V] iter(self : T[V], f : (Key, V) -> Unit) -> Unit {
+pub fn[V] T::iter(self : T[V], f : (Key, V) -> Unit) -> Unit {
   fn go(t : T[V]) -> Unit {
     match t {
       Empty => ()
@@ -306,7 +306,7 @@ pub fn[V] iter(self : T[V], f : (Key, V) -> Unit) -> Unit {
 }
 
 ///| Map a function over all values in the map
-pub fn[V, U] map(self : T[V], f : (V) -> U) -> T[U] {
+pub fn[V, U] T::map(self : T[V], f : (V) -> U) -> T[U] {
   fn go(t : T[V]) -> T[U] {
     match t {
       Empty => Empty
@@ -319,7 +319,7 @@ pub fn[V, U] map(self : T[V], f : (V) -> U) -> T[U] {
 }
 
 ///| Map a function over all key-value pairs in the map
-pub fn[V, U] mapi(self : T[V], f : (Key, V) -> U) -> T[U] {
+pub fn[V, U] T::mapi(self : T[V], f : (Key, V) -> U) -> T[U] {
   fn go(t : T[V]) -> T[U] {
     match t {
       Empty => Empty
@@ -332,7 +332,7 @@ pub fn[V, U] mapi(self : T[V], f : (Key, V) -> U) -> T[U] {
 }
 
 ///| Fold over all key-value pairs in the map
-pub fn[V, Acc] fold(self : T[V], f : (Key, V, Acc) -> Acc, init : Acc) -> Acc {
+pub fn[V, Acc] T::fold(self : T[V], f : (Key, V, Acc) -> Acc, init : Acc) -> Acc {
   fn go(t : T[V], acc : Acc) -> Acc {
     match t {
       Empty => acc
@@ -345,7 +345,7 @@ pub fn[V, Acc] fold(self : T[V], f : (Key, V, Acc) -> Acc, init : Acc) -> Acc {
 }
 
 ///| Check if all key-value pairs satisfy a predicate
-pub fn[V] for_all(self : T[V], predicate : (Key, V) -> Bool) -> Bool {
+pub fn[V] T::for_all(self : T[V], predicate : (Key, V) -> Bool) -> Bool {
   fn go(t : T[V]) -> Bool {
     match t {
       Empty => true
@@ -358,7 +358,7 @@ pub fn[V] for_all(self : T[V], predicate : (Key, V) -> Bool) -> Bool {
 }
 
 ///| Check if any key-value pair satisfies a predicate
-pub fn[V] exists(self : T[V], predicate : (Key, V) -> Bool) -> Bool {
+pub fn[V] T::exists(self : T[V], predicate : (Key, V) -> Bool) -> Bool {
   fn go(t : T[V]) -> Bool {
     match t {
       Empty => false
@@ -371,7 +371,7 @@ pub fn[V] exists(self : T[V], predicate : (Key, V) -> Bool) -> Bool {
 }
 
 ///| Filter the map to include only key-value pairs satisfying a predicate
-pub fn[V] filter(self : T[V], predicate : (Key, V) -> Bool) -> T[V] {
+pub fn[V] T::filter(self : T[V], predicate : (Key, V) -> Bool) -> T[V] {
   fn go(t : T[V]) -> T[V] {
     match t {
       Empty => Empty
@@ -384,7 +384,7 @@ pub fn[V] filter(self : T[V], predicate : (Key, V) -> Bool) -> T[V] {
 }
 
 ///| Filter and map over the map, keeping only successful transformations
-pub fn[V, U] filter_map(self : T[V], f : (Key, V) -> U?) -> T[U] {
+pub fn[V, U] T::filter_map(self : T[V], f : (Key, V) -> U?) -> T[U] {
   fn go(t : T[V]) -> T[U] {
     match t {
       Empty => Empty
@@ -401,7 +401,7 @@ pub fn[V, U] filter_map(self : T[V], f : (Key, V) -> U?) -> T[U] {
 }
 
 ///| Partition the map into two maps based on a predicate
-pub fn[V] partition(self : T[V], predicate : (Key, V) -> Bool) -> (T[V], T[V]) {
+pub fn[V] T::partition(self : T[V], predicate : (Key, V) -> Bool) -> (T[V], T[V]) {
   fn part(acc : (T[V], T[V]), t : T[V]) -> (T[V], T[V]) {
     let (true_map, false_map) = acc
     match t {
@@ -425,7 +425,7 @@ fn unsigned_lt(n : Int, m : Int) -> Bool {
 }
 
 ///| Union two maps with a combining function for conflicting keys
-pub fn[V] union(self : T[V], other : T[V], f : (Key, V, V) -> V?) -> T[V] {
+pub fn[V] T::union(self : T[V], other : T[V], f : (Key, V, V) -> V?) -> T[V] {
   fn union_impl(s : T[V], t : T[V]) -> T[V] {
     match (s, t) {
       (Empty, t) => t
@@ -473,7 +473,7 @@ pub fn[V] union(self : T[V], other : T[V], f : (Key, V, V) -> V?) -> T[V] {
 }
 
 ///| Merge two maps with a three-way merge function
-pub fn[V, U, W] merge(
+pub fn[V, U, W] T::merge(
   self : T[V],
   other : T[U],
   f : (Key, V?, U?) -> W?,
@@ -505,7 +505,7 @@ pub fn[V, U, W] merge(
 }
 
 ///| Compare two maps with a value comparison function
-pub fn[V] compare(self : T[V], other : T[V], cmp : (V, V) -> Int) -> Int {
+pub fn[V] T::compare(self : T[V], other : T[V], cmp : (V, V) -> Int) -> Int {
   fn compare_aux(t1 : T[V], t2 : T[V]) -> Int {
     match (t1, t2) {
       (Empty, Empty) => 0
@@ -546,7 +546,7 @@ pub fn[V] compare(self : T[V], other : T[V], cmp : (V, V) -> Int) -> Int {
 }
 
 ///| Check if two maps are equal with a value equality function
-pub fn[V] equal(self : T[V], other : T[V], eq : (V, V) -> Bool) -> Bool {
+pub fn[V] T::equal(self : T[V], other : T[V], eq : (V, V) -> Bool) -> Bool {
   fn equal_aux(t1 : T[V], t2 : T[V]) -> Bool {
     match (t1, t2) {
       (Empty, Empty) => true
@@ -561,7 +561,7 @@ pub fn[V] equal(self : T[V], other : T[V], eq : (V, V) -> Bool) -> Bool {
 }
 
 ///| Find the minimum key-value binding in the map
-pub fn[V] min_binding(self : T[V]) -> (Key, V) {
+pub fn[V] T::min_binding(self : T[V]) -> (Key, V) {
   fn go(t : T[V]) -> (Key, V) {
     match t {
       Empty => abort("Map is empty")
@@ -582,7 +582,7 @@ pub fn[V] min_binding(self : T[V]) -> (Key, V) {
 }
 
 ///| Find the minimum key-value binding in the map, returning None if empty
-pub fn[V] min_binding_opt(self : T[V]) -> (Key, V)? {
+pub fn[V] T::min_binding_opt(self : T[V]) -> (Key, V)? {
   fn go(t : T[V]) -> (Key, V)? {
     match t {
       Empty => None
@@ -606,7 +606,7 @@ pub fn[V] min_binding_opt(self : T[V]) -> (Key, V)? {
 }
 
 ///| Find the maximum key-value binding in the map
-pub fn[V] max_binding(self : T[V]) -> (Key, V) {
+pub fn[V] T::max_binding(self : T[V]) -> (Key, V) {
   fn go(t : T[V]) -> (Key, V) {
     match t {
       Empty => abort("Map is empty")
@@ -627,7 +627,7 @@ pub fn[V] max_binding(self : T[V]) -> (Key, V) {
 }
 
 ///| Find the maximum key-value binding in the map, returning None if empty
-pub fn[V] max_binding_opt(self : T[V]) -> (Key, V)? {
+pub fn[V] T::max_binding_opt(self : T[V]) -> (Key, V)? {
   fn go(t : T[V]) -> (Key, V)? {
     match t {
       Empty => None
@@ -651,7 +651,7 @@ pub fn[V] max_binding_opt(self : T[V]) -> (Key, V)? {
 }
 
 ///| Choose an arbitrary key-value pair from the map
-pub fn[V] choose(self : T[V]) -> (Key, V) {
+pub fn[V] T::choose(self : T[V]) -> (Key, V) {
   match self {
     Empty => abort("Map is empty")
     Leaf(k, v) => (k, v)
@@ -660,7 +660,7 @@ pub fn[V] choose(self : T[V]) -> (Key, V) {
 }
 
 ///| Choose an arbitrary key-value pair from the map, returning None if empty
-pub fn[V] choose_opt(self : T[V]) -> (Key, V)? {
+pub fn[V] T::choose_opt(self : T[V]) -> (Key, V)? {
   match self {
     Empty => None
     Leaf(k, v) => Some((k, v))
@@ -669,7 +669,7 @@ pub fn[V] choose_opt(self : T[V]) -> (Key, V)? {
 }
 
 ///| Split the map at a given key
-pub fn[V] split(self : T[V], x : Key) -> (T[V], V?, T[V]) {
+pub fn[V] T::split(self : T[V], x : Key) -> (T[V], V?, T[V]) {
   let collect = fn(k : Key, v : V, acc : (T[V], V?, T[V])) -> (T[V], V?, T[V]) {
     let (l, b, r) = acc
     if k < x {
@@ -684,7 +684,7 @@ pub fn[V] split(self : T[V], x : Key) -> (T[V], V?, T[V]) {
 }
 
 ///| Get all key-value bindings as a list
-pub fn[V] bindings(self : T[V]) -> Array[(Key, V)] {
+pub fn[V] T::bindings(self : T[V]) -> Array[(Key, V)] {
   let result = []
   self.iter(fn(k, v) { result.push((k, v)) })
   result
