@@ -23,7 +23,7 @@ pub enum T[V] {
   Leaf(Key, V)
   /// Branch node with prefix, mask, and left/right subtrees
   Branch(Int, Int, T[V], T[V])
-} derive(Show, Eq)
+} derive(Debug, Eq)
 
 ///| Create an empty map
 pub fn[V] T::empty() -> T[V] {
