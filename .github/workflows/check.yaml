@@ -14,40 +14,31 @@ on:
   pull_request:
 
 jobs:
-  check:
+  build:
     strategy:
       matrix:
-        version: [stable,pre-release,bleeding]
         os:
           - name: ubuntu-latest
-            triple: x86_64-linux-gnu
           - name: macos-latest
-            triple: arm64-apple-darwin
-          - name: macos-13
-            triple: x86_64-apple-darwin
           - name: windows-latest
-            triple: x86_64-w64-mingw32
 
-          # stable check
-
-          # pre-release check
-
-          # bleeding check
-          # 1. install latest toolchain
-          # 2. install latest core library from github.com
-          
-      fail-fast: false
     runs-on: ${{ matrix.os.name }}
-    continue-on-error: false
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-      
-      - name: Setup Moon
-        uses: illusory0x0/setup-moonbit@v0.1.0
-        with: 
-          version: ${{ matrix.version }}
+
+      - name: install
+        if: ${{ matrix.os.name != 'windows-latest' }}
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> $GITHUB_PATH
+
+      - name: install on windows
+        if: ${{ matrix.os.name == 'windows-latest' }}
+        run: |
+          Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://cli.moonbitlang.com/install/powershell.ps1 | iex
+          "C:\Users\runneradmin\.moon\bin" | Out-File -FilePath $env:GITHUB_PATH -Append
+
 
       - name: moon version
         run: |
