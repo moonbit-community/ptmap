@@ -44,10 +44,12 @@ pub fn[V] T::mem(Self[V], Int) -> Bool
 pub fn[V, U, W] T::merge(Self[V], Self[U], (Int, V?, U?) -> W?) -> Self[W]
 pub fn[V] T::min_binding(Self[V]) -> (Int, V)
 pub fn[V] T::min_binding_opt(Self[V]) -> (Int, V)?
+pub fn[V : Eq] T::not_equal(Self[V], Self[V]) -> Bool
 pub fn[V] T::partition(Self[V], (Int, V) -> Bool) -> (Self[V], Self[V])
 pub fn[V] T::remove(Self[V], Int) -> Self[V]
 pub fn[V] T::singleton(Int, V) -> Self[V]
 pub fn[V] T::split(Self[V], Int) -> (Self[V], V?, Self[V])
+pub fn[V : @debug.Debug] T::to_repr(Self[V]) -> @debug.Repr
 pub fn[V] T::union(Self[V], Self[V], (Int, V, V) -> V?) -> Self[V]
 pub fn[V] T::update(Self[V], Int, (V?) -> V?) -> Self[V]
 
