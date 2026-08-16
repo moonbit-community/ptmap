@@ -28,6 +28,12 @@ pub enum T[V] {
 } derive(Debug, Eq)
 
 ///|
+pub extend T with @debug.Debug::{to_repr}
+
+///|
+pub extend T with Eq::{not_equal}
+
+///|
 /// Create an empty map
 pub fn[V] T::empty() -> T[V] {
   Empty
