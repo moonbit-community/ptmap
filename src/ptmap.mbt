@@ -14,7 +14,7 @@
 
 ///|
 /// Key type for the map (integer)
-pub type Key = Int
+pub type Key = Int32
 
 ///|
 /// Patricia tree map data structure
@@ -24,7 +24,7 @@ pub enum T[V] {
   /// Leaf node containing a key-value pair
   Leaf(Key, V)
   /// Branch node with prefix, mask, and left/right subtrees
-  Branch(Int, Int, T[V], T[V])
+  Branch(Int32, Int32, T[V], T[V])
 } derive(Debug, Eq)
 
 ///|
@@ -44,37 +44,37 @@ pub fn[V] T::is_empty(self : T[V]) -> Bool {
 
 ///|
 /// Test if a bit is zero in a key given a mask
-fn zero_bit(k : Int, m : Int) -> Bool {
+fn zero_bit(k : Int32, m : Int32) -> Bool {
   (k & m) == 0
 }
 
 ///|
 /// Get the lowest bit of an integer
-fn lowest_bit(x : Int) -> Int {
+fn lowest_bit(x : Int32) -> Int32 {
   x & -x
 }
 
 ///|
 /// Calculate the branching bit between two prefixes
-fn branching_bit(p0 : Int, p1 : Int) -> Int {
+fn branching_bit(p0 : Int32, p1 : Int32) -> Int32 {
   lowest_bit(p0 ^ p1)
 }
 
 ///|
 /// Apply mask to get the prefix
-fn mask(p : Int, m : Int) -> Int {
+fn mask(p : Int32, m : Int32) -> Int32 {
   p & (m - 1)
 }
 
 ///|
 /// Check if a key matches a prefix with given mask
-fn match_prefix(k : Int, p : Int, m : Int) -> Bool {
+fn match_prefix(k : Int32, p : Int32, m : Int32) -> Bool {
   mask(k, m) == p
 }
 
 ///|
 /// Join two trees with different prefixes
-fn[V] join(p0 : Int, t0 : T[V], p1 : Int, t1 : T[V]) -> T[V] {
+fn[V] join(p0 : Int32, t0 : T[V], p1 : Int32, t1 : T[V]) -> T[V] {
   let m = branching_bit(p0, p1)
   if zero_bit(p0, m) {
     Branch(mask(p0, m), m, t0, t1)
@@ -85,7 +85,7 @@ fn[V] join(p0 : Int, t0 : T[V], p1 : Int, t1 : T[V]) -> T[V] {
 
 ///|
 /// Smart constructor for branch nodes that handles empty subtrees
-fn[V] branch(p : Int, m : Int, t0 : T[V], t1 : T[V]) -> T[V] {
+fn[V] branch(p : Int32, m : Int32, t0 : T[V], t1 : T[V]) -> T[V] {
   match (t0, t1) {
     (Empty, t) => t
     (t, Empty) => t
@@ -161,8 +161,8 @@ pub fn[V] T::remove(self : T[V], k : Key) -> T[V] {
 
 ///|
 /// Count the number of key-value pairs in the map
-pub fn[V] T::cardinal(self : T[V]) -> Int {
-  fn count(t : T[V]) -> Int {
+pub fn[V] T::cardinal(self : T[V]) -> Int32 {
+  fn count(t : T[V]) -> Int32 {
     match t {
       Empty => 0
       Leaf(_, _) => 1
@@ -463,7 +463,7 @@ pub fn[V] T::partition(
 
 ///|
 /// Helper function for unsigned comparison (needed for union algorithm)
-fn unsigned_lt(n : Int, m : Int) -> Bool {
+fn unsigned_lt(n : Int32, m : Int32) -> Bool {
   n >= 0 && (m < 0 || n < m)
 }
 
@@ -551,8 +551,8 @@ pub fn[V, U, W] T::merge(
 
 ///|
 /// Compare two maps with a value comparison function
-pub fn[V] T::compare(self : T[V], other : T[V], cmp : (V, V) -> Int) -> Int {
-  fn compare_aux(t1 : T[V], t2 : T[V]) -> Int {
+pub fn[V] T::compare(self : T[V], other : T[V], cmp : (V, V) -> Int32) -> Int32 {
+  fn compare_aux(t1 : T[V], t2 : T[V]) -> Int32 {
     match (t1, t2) {
       (Empty, Empty) => 0
       (Empty, _) => -1
