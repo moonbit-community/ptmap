@@ -1,19 +1,19 @@
 ///|
 test "basic ptmap functionality" {
   // Test empty map
-  let empty : T[Int] = T::empty()
+  let empty : @ptmap.T[Int32] = @ptmap.T::empty()
   if !empty.is_empty() {
     abort("Empty map should be empty")
   }
 
   // Test singleton
-  let single = T::singleton(1, 100)
+  let single = @ptmap.T::singleton(1, 100)
   if single.find(1) != 100 {
     abort("Singleton should contain the correct value")
   }
 
   // Test adding elements
-  let mut map : T[String] = T::empty()
+  let mut map : @ptmap.T[String] = @ptmap.T::empty()
   map = map.add(1, "one")
   map = map.add(2, "two")
   if map.cardinal() != 2 {
